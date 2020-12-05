@@ -1,0 +1,25 @@
+{
+  "name": "questions-and-answers",
+  "version": "1.0.0",
+  "description": "> The questions & answers service is one of the several services that power Atelier API used by Project Catwalk. This service provides the ability to process and handle requests at-scale for the questions & answers section on the product detail page.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pate-Sucree/questions-and-answers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pate-Sucree/questions-and-answers/issues"
+  },
+  "homepage": "https://github.com/Pate-Sucree/questions-and-answers#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "neo4j-driver": "^4.2.1",
+    "neo4j-graphql-js": "^2.17.1"
+  }
+}
