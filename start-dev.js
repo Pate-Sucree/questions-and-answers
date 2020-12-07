@@ -10,7 +10,7 @@ const concurrentOpts = {
 
 const jobs = [
   {
-    name: 'graphQL API',
+    name: 'Team Pate Sucree Q&A Service',
     command: `npm run start:dev`,
     prefixColor: 'magenta',
   },

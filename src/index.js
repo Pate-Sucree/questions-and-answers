@@ -1,10 +1,14 @@
 import { ApolloServer } from 'apollo-server';
 import neo4j from 'neo4j-driver';
-import { makeAugmentedSchema, inferSchema } from 'neo4j-graphql-js';
+import { makeAugmentedSchema } from 'neo4j-graphql-js';
 import dotenv from 'dotenv';
+import { typeDefs } from './readSchemaFile';
 
 // set neo4j credentials as environment vars from .env file
 dotenv.config();
+
+// use the defined graphql schema that is read from readSchemaFile.js
+const schema = makeAugmentedSchema({ typeDefs });
 
 // create the driver to connect to the neo4j db
 const driver = neo4j.driver(
@@ -18,41 +22,18 @@ const driver = neo4j.driver(
   }
 )
 
-// specify options for the inferschema function
-const schemaInferenceOptions = {
-  alwaysIncludeRelationships: false,
-}
+// create apollo server with ne4j driver and schema
+const server = new ApolloServer({
+  context: { driver, neo4jDatabase: process.env.NEO4J_DATABASE },
+  schema: schema,
+  playground: true,
+});
 
-const inferAugmentedSchema = (driver) => {
-  return inferSchema(driver, schemaInferenceOptions).then((result) => {
-    console.log('TYPEDEFS:')
-    console.log(result.typeDefs)
+// use gloabl prot ENV var or port 3000
+const port = process.env.GRAPHQL_SERVER_PORT || 3000;
 
-    return makeAugmentedSchema({
-      typeDefs: result.typeDefs,
-    })
-  })
-}
-
-const createServer = (augmentedSchema) =>
-  new ApolloServer({
-    schema: augmentedSchema,
-    // inject the request object into the context to support middleware
-    // inject the Neo4j driver instance to handle database call
-    context: ({ req }) => {
-      return {
-        driver,
-        req,
-      }
-    },
-  })
-
-const port = process.env.GRAPHQL_SERVER_PORT || 3000
-
-// generate a graphQL schema based off of existing neo4j db
-inferAugmentedSchema(driver)
-  .then(createServer)
-  .then((server) => server.listen(port, '0.0.0.0'))
+// START THE SERVER!
+server.listen(port, '0.0.0.0')
   .then(({ url }) => {
     console.log(`GraphQL API ready at ${url}`)
   })
