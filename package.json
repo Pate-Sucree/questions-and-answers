@@ -2,10 +2,10 @@
   "name": "questions-and-answers",
   "version": "1.0.0",
   "description": "> The questions & answers service is one of the several services that power Atelier API used by Project Catwalk. This service provides the ability to process and handle requests at-scale for the questions & answers section on the product detail page.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "cross-env DEBUG=neo4j-graphql-js ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "start:dev": "cross-env DEBUG=neo4j-graphql-js nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/schema.graphql build",
     "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
     "start": "node start-dev.js"
@@ -42,12 +42,13 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime-corejs3": "^7.9.2",
+    "artillery": "^1.6.1",
     "babel-plugin-auto-import": "^1.0.5",
     "babel-plugin-module-resolver": "^4.0.0",
-    "cross-env": "^7.0.2",
-    "shx": "^0.3.2",
-    "execa": "^4.0.2",
     "concurrently": "^5.2.0",
-    "grandstack": "^0.0.7"
+    "cross-env": "^7.0.2",
+    "execa": "^4.0.2",
+    "grandstack": "^0.0.7",
+    "shx": "^0.3.2"
   }
 }

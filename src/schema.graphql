@@ -1,0 +1,43 @@
+ type Product {
+  _id: Long!
+  category: String!
+  id: Int!
+  name: String!
+  has_question: [Question] @relation(name: "HAS_QUESTION", direction: OUT)
+ }
+
+type Question {
+  _id: Long!
+  body: String!
+  date: String!
+  email: String!
+  id: Int!
+  name: String!
+  product_id: Int!
+  reported: String!
+  has_answer: [Answer] @relation(name: "HAS_ANSWER", direction: OUT)
+  products: [Product] @relation(name: "HAS_QUESTION", direction: IN)
+ }
+
+ type Answer {
+  _id: Long!
+  body: String!
+  date: String!
+  email: String!
+  helpful: Int!
+  id: Int!
+  name: String!
+  question_id: Int!
+  reported: String!
+  has_photo: [Photo] @relation(name: "HAS_PHOTO", direction: OUT)
+  questions: [Question] @relation(name: "HAS_ANSWER", direction: IN)
+ }
+
+ type Photo {
+  _id: Long!
+  answer_id: Int!
+  id: Int!
+  url: String!
+  answers: [Answer] @relation(name: "HAS_PHOTO", direction: IN)
+ }
+
