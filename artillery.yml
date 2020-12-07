@@ -1,0 +1,31 @@
+config:
+  target: "http://0.0.0.0:4001/"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+
+scenarios:
+  - name: "question SLAM"
+    flow:
+      - post:
+          url: '/'
+          json:
+            query: '{
+  Question(product_id: 10) {
+    body
+    has_answer{
+      body
+      has_photo{
+        url
+      }
+    }
+  }
+}'
