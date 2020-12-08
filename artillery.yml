@@ -1,25 +1,27 @@
 config:
   target: "http://0.0.0.0:4001/"
+  processor: './makeFakeData.js'
   phases:
     - duration: 60
       arrivalRate: 5
       name: Warm up
     - duration: 120
       arrivalRate: 5
-      rampTo: 50
+      rampTo: 100
       name: Ramp up load
     - duration: 600
-      arrivalRate: 50
+      arrivalRate: 100
       name: Sustained load
 
 scenarios:
   - name: "question SLAM"
     flow:
+      - function: 'generateRandomData'
       - post:
           url: '/'
           json:
             query: '{
-  Question(product_id: 10) {
+  Question(product_id: {{ product_Id }}) {
     body
     has_answer{
       body
