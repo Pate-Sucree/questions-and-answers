@@ -9,7 +9,8 @@
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/schema.graphql build",
     "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
     "start": "node start-dev.js",
-    "load": "artillery run artillery.yml"
+    "load": "artillery run artillery.yml",
+    "seed": "node seed.js"
   },
   "repository": {
     "type": "git",
