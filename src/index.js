@@ -1,4 +1,5 @@
 require('newrelic');
+const plugin = require('@newrelic/apollo-server-plugin');
 import { ApolloServer } from 'apollo-server';
 import neo4j from 'neo4j-driver';
 import { makeAugmentedSchema } from 'neo4j-graphql-js';
@@ -28,6 +29,7 @@ const server = new ApolloServer({
   context: { driver, neo4jDatabase: process.env.NEO4J_DATABASE },
   schema: schema,
   playground: true,
+  plugin: [plugin]
 });
 
 // use gloabl prot ENV var or port 3000

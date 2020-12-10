@@ -5,12 +5,12 @@ config:
     - duration: 60
       arrivalRate: 5
       name: Warm up
-    - duration: 120
+    - duration: 720
       arrivalRate: 5
-      rampTo: 100
+      rampTo: 500
       name: Ramp up load
-    - duration: 600
-      arrivalRate: 100
+    - duration: 300
+      arrivalRate: 500
       name: Sustained load
 
 scenarios:
@@ -22,9 +22,14 @@ scenarios:
           json:
             query: '{
   Question(product_id: {{ product_Id }}) {
+    name
     body
+    date
     has_answer{
+      name
+      date
       body
+      helpful
       has_photo{
         url
       }
